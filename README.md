@@ -8,11 +8,9 @@ Features:
 + currently im supporting only Debian 8 with Java 8. (but of course you can use it on other systems, and with newer or older java.)
 
 ## Downloads
-#### [Direct Download]()
+#### [Raw script](https://gitlab.com/lollilol/minecraft-server-startscript/blob/master/minecraft.sh)
 
-[Releases]()
-
-[Raw script]() (right click, wget friendly, most up to date)
+[Raw script](https://gitlab.com/lollilol/minecraft-server-startscript/raw/32afb630fa4ece3bcf89fff908b959e1a251799e/minecraft.sh)
 
 ## Usage
 ```

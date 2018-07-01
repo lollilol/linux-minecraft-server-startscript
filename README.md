@@ -27,7 +27,7 @@ Features:
 + done.
 
 or just paste
->`cd && wget https://gitlab.com/lollilol/minecraft-server-startscript/raw/32afb630fa4ece3bcf89fff908b959e1a251799e/minecraft.sh && nano startscript.sh && chmod a+x minecraft.sh`
+>`cd && wget https://gitlab.com/lollilol/minecraft-server-startscript/raw/32afb630fa4ece3bcf89fff908b959e1a251799e/minecraft.sh && nano minecraft.sh && chmod a+x minecraft.sh`
 
 into ssh, to download the script in the home folder and make it executeable.
 

@@ -21,7 +21,7 @@ Features:
 
 + Connect to your VPS via SSH.
 + Go to the directory where you want to download the file
-+ Execute `wget https://gitlab.com/lollilol/minecraft-server-startscript/raw/32afb630fa4ece3bcf89fff908b959e1a251799e/minecraft.sh>`
++ Execute `wget https://gitlab.com/lollilol/minecraft-server-startscript/raw/32afb630fa4ece3bcf89fff908b959e1a251799e/minecraft.sh`
 + Customize it with `nano minecraft.sh`
 + make it executeable with `chmod a+x minecraft.sh`
 + done.

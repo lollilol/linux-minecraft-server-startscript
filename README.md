@@ -8,9 +8,9 @@ Features:
 + currently im supporting only Debian 8 with Java 8. (but of course you can use it on other systems, and with newer or older java.)
 
 ## Downloads
-#### [Direct Download](https://gitlab.com/lollilol/minecraft-server-startscript/uploads/22127e7ca0fbd5d99eae3bf275b66ee9/minecraft.sh)
+#### [Direct Download](https://gitlab.com/lollilol/minecraft-server-startscript/raw/master/minecraft.sh?inline=false)
 
-[Raw script](https://gitlab.com/lollilol/minecraft-server-startscript/raw/32afb630fa4ece3bcf89fff908b959e1a251799e/minecraft.sh)
+[Raw script](https://gitlab.com/lollilol/minecraft-server-startscript/raw/master/minecraft.sh)
 
 ## Usage
 ```
@@ -21,13 +21,13 @@ Features:
 
 + Connect to your VPS via SSH.
 + Go to the directory where you want to download the file
-+ Execute `wget https://gitlab.com/lollilol/minecraft-server-startscript/raw/32afb630fa4ece3bcf89fff908b959e1a251799e/minecraft.sh`
++ Execute `wget https://gitlab.com/lollilol/minecraft-server-startscript/raw/master/minecraft.sh`
 + Customize it with `nano minecraft.sh`
 + make it executeable with `chmod a+x minecraft.sh`
 + done.
 
 or just paste
->`cd && wget https://gitlab.com/lollilol/minecraft-server-startscript/raw/32afb630fa4ece3bcf89fff908b959e1a251799e/minecraft.sh && nano minecraft.sh && chmod a+x minecraft.sh`
+>`cd && wget https://gitlab.com/lollilol/minecraft-server-startscript/raw/master/minecraft.sh && nano minecraft.sh && chmod a+x minecraft.sh`
 
 into ssh, to download the script in the home folder and make it executeable.
 

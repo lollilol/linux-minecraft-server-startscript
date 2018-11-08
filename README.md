@@ -3,8 +3,8 @@ A customizable, little script to start your minecraft server.
 
 ## Overview
 Features:
-+ Start, stop and reload your minecraft server (reload works only on minecraft 1.12+)
-+ You dont need any start.sh in your minecraft folder! Only a startable minecraft server.
++ Start, stop and reload your minecraft server (reload works only on minecraft 1.12+ or on every spigot server)
++ You only need the script the folder! it automatically downloads newest spigot.jar!
 + currently im supporting only Debian 8 with Java 8. (but of course you can use it on other systems, and with newer or older java.)
 
 ## Downloads

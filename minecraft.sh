@@ -18,7 +18,7 @@ name=minecraft
 # for 512 Megabyte, write: "512M"
 # for 256 Megabyte, write: "256M"
 # etc..
-ram=2G
+ram=1G
 
 ##Updating
 #Here you can specify a url to an always up-to-date server.jar

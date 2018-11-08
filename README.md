@@ -14,22 +14,22 @@ Features:
 
 ## Usage
 ```
-./minecraft.sh (start|stop|restart|reload)
+./minecraft.sh (start|stop|restart|kill|reload|console)
 ```
 
 ## How to download:
 
 + Connect to your VPS via SSH.
 + Go to the directory where you want to download the file
-+ Execute `wget https://gitlab.com/lollilol/minecraft-server-startscript/raw/master/minecraft.sh`
++ Execute `wget -O minecraft.sh https://drcrft.tk/mcscript`
 + Customize it with `nano minecraft.sh`
 + make it executeable with `chmod a+x minecraft.sh`
 + done.
 
 or just paste
->`cd && wget https://gitlab.com/lollilol/minecraft-server-startscript/raw/master/minecraft.sh && nano minecraft.sh && chmod a+x minecraft.sh`
+>`wget -O minecraft.sh https://drcrft.tk/mcscript && nano minecraft.sh && chmod a+x minecraft.sh`
 
-into ssh, to download the script in the home folder and make it executeable.
+into ssh, to download the script in the current folder and make it executeable.
 
 ## Required/Dependencies
 + screen (in the most Repositorys called "screen")

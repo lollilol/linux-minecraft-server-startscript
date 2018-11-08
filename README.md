@@ -14,7 +14,7 @@ Features:
 
 ## Usage
 ```
-./minecraft.sh (start|stop|restart|kill|reload|console)
+./minecraft.sh (start|stop|restart|kill|reload|console|update)
 ```
 
 ## How to download:

@@ -2,7 +2,7 @@
 ##configuration
 
 #minecraft server .jar Name
-binary=spigot.jar
+binary=paper.jar
 
 #directory of the minecraft server, write "." if the startscript is in the same folder as the minecraft server.
 #dont put a "/" at the end of the line! otherwise update wont work!
@@ -22,7 +22,7 @@ ram=1G
 
 ##Updating
 #Here you can specify a url to an always up-to-date server.jar
-url=https://yivesmirror.com/files/spigot/spigot-latest.jar
+url=https://papermc.io/ci/job/Paper-1.13/lastSuccessfulBuild/artifact/paperclip.jar
 
 ##########################################
 # no neccesary changes beyond this line! #
@@ -54,6 +54,13 @@ restart)
 	$0 stop
 	$0 start
 	;;
+status)
+	if screen -ls | grep -q "$name"; then
+		echo "\033[32m$name-server is running.\033[0m"
+	else
+		echo "\033[31m$name-server is not running.\033[0m"
+	fi
+	;;
 kill)
 	if screen -ls | grep -q "$name"; then
 		screen -XS $name quit
@@ -63,11 +70,16 @@ kill)
 	fi
 	;;
 reload)
-  screen -S $name -p 0 -X stuff "reload^M"
+	if screen -ls | grep -q "$name"; then
+		screen -S $name -p 0 -X stuff "reload^M"
+		echo "\033[32m$name-server was reloaded..\033[0m"
+	else
+		echo "\033[31m$name-server is not running!\033[0m"
+	fi
 	;;
 console)
 	if screen -ls | grep -q "$name"; then
-		screen -r $name
+		screen -rx $name
 	else
 		echo "\033[31m$name-server is not running!\033[0m"
 	fi
@@ -76,7 +88,7 @@ update)
 	wget -O $directory/$binary $url
 	;;
 *)
-	echo "\033[31mUsage: './$script (start|stop|restart|kill|reload|console|update)'\033[0m"
+	echo "\033[31mUsage: '$0 (start|stop|restart|status|kill|reload|console|update)'\033[0m"
 	;;
 esac
 exit 0

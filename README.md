@@ -31,7 +31,7 @@ into ssh, to download the script in the current folder and make it executeable.
 
 ## Required/Dependencies
 + screen (in the most Repositorys called "screen")
-+ java ([How to install](debian8_java8.md))
++ java ([How to install](java8.md))
 + one minecraft server
 
 ## Autostart integration

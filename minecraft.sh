@@ -23,6 +23,7 @@ ram=4G
 ##Updating
 #Here you can specify a url to an always up-to-date server.jar
 url=https://papermc.io/ci/job/Paper-1.13/lastSuccessfulBuild/artifact/paperclip.jar
+#spigot url: https://cdn.getbukkit.org/spigot/spigot-1.13.2.jar
 
 ##Backup
 backup_folder=backups

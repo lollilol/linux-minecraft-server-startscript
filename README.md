@@ -3,9 +3,9 @@ A customizable, little script to start your minecraft server.
 
 ## Overview
 Features:
-+ Start, stop and reload your minecraft server (reload works only on minecraft 1.12+ or on every spigot server)
-+ You only need the script the folder! it automatically downloads newest spigot.jar!
-+ currently im supporting only Debian 8 with Java 8. (but of course you can use it on other systems, and with newer or older java.)
++ Start, stop and reload your minecraft server (reload works only on minecraft 1.12+ or on every spigot/papermc server)
++ You only need the script the folder! it automatically downloads newest paper.jar/spigot.jar!
++ currently im supporting only Debian 8 & 9 with Java 8. (but of course you can use it on other systems, and with newer or older java.)
 
 ## Downloads
 #### [Raw Script](https://raw.githubusercontent.com/lollilol/linux-minecraft-server-startscript/master/minecraft.sh)
@@ -17,7 +17,7 @@ Features:
 
 ## How to download:
 
-+ Connect to your VPS via SSH.
++ Connect to your Server via SSH.
 + Go to the directory where you want to download the file
 + Execute `wget -O minecraft.sh https://drcrft.tk/mcscript`
 + Customize it with `nano minecraft.sh`

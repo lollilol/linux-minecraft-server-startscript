@@ -8,9 +8,7 @@ Features:
 + currently im supporting only Debian 8 with Java 8. (but of course you can use it on other systems, and with newer or older java.)
 
 ## Downloads
-#### [Direct Download](https://gitlab.com/lollilol/minecraft-server-startscript/raw/master/minecraft.sh?inline=false)
-
-[Raw script](https://gitlab.com/lollilol/minecraft-server-startscript/raw/master/minecraft.sh)
+#### [Raw Script](https://raw.githubusercontent.com/lollilol/linux-minecraft-server-startscript/master/minecraft.sh)
 
 ## Usage
 ```

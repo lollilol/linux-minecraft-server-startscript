@@ -19,13 +19,13 @@ Features:
 
 + Connect to your Server via SSH.
 + Go to the directory where you want to download the file
-+ Execute `wget -O minecraft.sh https://drcrft.tk/mcscript`
++ Execute `wget -O minecraft.sh https://git.io/fh5VS`
 + Customize it with `nano minecraft.sh`
 + make it executeable with `chmod a+x minecraft.sh`
 + done.
 
 or just paste
->`wget -O minecraft.sh https://drcrft.tk/mcscript && nano minecraft.sh && chmod a+x minecraft.sh`
+>`wget -O minecraft.sh https://git.io/fh5VS && nano minecraft.sh && chmod a+x minecraft.sh`
 
 into ssh, to download the script in the current folder and make it executeable.
 

@@ -1,5 +1,5 @@
 # Startscript for a minecraft server.
-A customizable, basic script to start your minecraft server.
+A customizable, basic bash script to start your minecraft server.
 
 ## Overview
 Features:

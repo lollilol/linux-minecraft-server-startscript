@@ -2,14 +2,17 @@
 ##configuration
 
 #minecraft server .jar Name
-binary=paper.jar
+binary=server.jar
 
 #directory of the minecraft server, write "." if the startscript is in the same folder as the minecraft server.
 #dont put a "/" at the end of the line! otherwise update wont work!
-directory=/home/minecraft/survival
+directory=/usr/mc
+
+#flags / commandline parameter
+flags="-XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:MaxGCPauseMillis=100 -XX:+DisableExplicitGC -XX:TargetSurvivorRatio=90 -XX:G1NewSizePercent=50 -XX:G1MaxNewSizePercent=80 -XX:G1MixedGCLiveThresholdPercent=35 -XX:+AlwaysPreTouch -XX:+ParallelRefProcEnabled -Dusing.aikars.flags=mcflags.emc.gs"
 
 #name, used as screen and display-name in the entire script"
-name=survival
+name=mc
 
 ##RAM
 # usage
@@ -21,13 +24,13 @@ name=survival
 ram=4G
 
 ##Updating
-#Here you can specify a url to an always up-to-date server.jar
-url=https://papermc.io/ci/job/Paper-1.13/lastSuccessfulBuild/artifact/paperclip.jar
+#Here you can specify an url to an always up-to-date server.jar
+url=https://papermc.io/ci/job/Paper-1.14/lastSuccessfulBuild/artifact/paperclip.jar
 #spigot url: https://cdn.getbukkit.org/spigot/spigot-1.13.2.jar
 
 ##Backup
 backup_folder=backups
-backup_file=world-$(date +"%d-%m-%y_%H:%M").tar.gz
+backup_file=world-$(date +"%d.%m.%y_%H:%M").tar.gz
 
 
 ##########################################
@@ -39,7 +42,7 @@ case "$1" in
 start)
 	if ! screen -ls | grep -q "$name"; then
 		cd $directory
-		screen -AmdS $name java -Xms100M -Xmx$ram -jar $binary nogui
+		screen -AmdS $name java -jar -Xms$ram -Xmx$ram $flags $binary nogui
 		sleep 1
 		echo "\033[32m$name-server was started..\033[0m"
 	else
@@ -48,8 +51,8 @@ start)
 	;;
 stop)
 	if screen -ls | grep -q "$name"; then
-		screen -S $name -p 0 -X stuff "kick @a The server is restarting or got stopped.^M"
-		screen -S $name -p 0 -X stuff "^C^M"
+		screen -S $name -p 0 -X stuff "minecraft:kick @a The server is restarting or got stopped.^M"
+		screen -S $name -p 0 -X stuff "stop^M"
 		sleep 1
 		echo "\033[31m$name-server was stopped..\033[0m"
 	else
@@ -58,7 +61,7 @@ stop)
 	;;
 restart)
 	$0 stop
-	sleep 5
+	sleep 10
 	$0 start
 	;;
 status)
@@ -103,14 +106,12 @@ update)
 	wget -O $directory/$binary $url
 	;;
 backup)
-	if [ -d "$backup_folder" ]
+	if [ -d "$directory/$backup_folder" ]
 	then
-		$0 save
-		sleep 2 #if the server tooks longer saving the world than these two seconds, the backup file will be corrupted. So be sure this is set right.
-		cd $directory
-		echo "\033[32mStarting Backup progress...\033[0m"
-		tar -czf $backup_folder/$backup_file world/
-		echo "\033[32mWorld successfully backupped. Location: $backup_folder/$backup_file\033[0m"
+		if screen -ls | grep -q "$name"; then
+			$0 save
+			sleep 20 #if the server tooks longer saving the world than these two seconds, the backup file will be corrupted. So be sure this is set right.
+		fi
 	else
 		$0 save
 		sleep 2
@@ -118,10 +119,13 @@ backup)
 		echo "\033[31mBackup Folder doesnt exist. Creating it...\033[0m"
 		sleep 1
 		mkdir $backup_folder
-		echo "\033[32mStarting Backup progress...\033[0m"
-		tar -czf $backup_folder/$backup_file world/
-		echo "\033[32mWorld successfully backupped. Location: $backup_folder/$backup_file\033[0m"
 	fi
+	echo "\033[32mStarting Backup progress...\033[0m"
+	tar -czf $backup_folder/$backup_file world/
+	echo "\033[32mWorld successfully backupped. Location: $backup_folder/$backup_file\033[0m"
+	;;
+edit)
+	if [ -z ${EDITOR+x} ]; then nano $0; else $EDITOR $0; fi
 	;;
 *)
 	echo "\033[31mUsage: '$0 (start|stop|restart|status|save|kill|reload|console|update|backup)'\033[0m"

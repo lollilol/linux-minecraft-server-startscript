@@ -1,11 +1,11 @@
 # Startscript for a minecraft server.
-A customizable, basic bash script to start your minecraft server.
+A customizable, basic bash script to manage your minecraft server.
 
 ## Overview
 Features:
-+ Start, stop and reload your minecraft server (reload works only on minecraft 1.12+ or on every spigot/papermc server)
-+ You only need the script the folder! it automatically downloads newest paper.jar/spigot.jar!
-+ currently im supporting only Debian 8 & 9 with Java 8. (but of course you can use it on other systems, and with newer or older java.)
++ Start, stop and reload your minecraft server (reload only on minecraft 1.12+ or on every spigot/papermc server)
++ You only need the script to set up a server! It automatically downloads newest paper.jar (customizable)
++ should work on any linux distro.
 
 ## Downloads
 #### [Raw Script](https://raw.githubusercontent.com/lollilol/linux-minecraft-server-startscript/master/minecraft.sh)
@@ -32,7 +32,6 @@ into ssh, to download the script in the current folder and make it executeable.
 ## Required/Dependencies
 + screen (in the most Repositorys called "screen")
 + java ([How to install](java8.md))
-+ one minecraft server
 
 ## Autostart integration
 + Please make sure you have crontab/cron installed

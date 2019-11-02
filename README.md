@@ -12,7 +12,7 @@ Features:
 
 ## Usage
 ```
-mc (start|stop|restart|status|save|kill|reload|console|update|backup)
+mc (start|stop|restart|status|save|kill|reload|console|update|backup|edit|properties)
 ```
 
 ## How to download:
@@ -21,11 +21,11 @@ mc (start|stop|restart|status|save|kill|reload|console|update|backup)
 + Go to the directory where you want to download the file
 + Execute `wget -O /usr/bin/mc https://git.io/Jegiv`
 + Customize it with `nano $(which mc)`
-+ make it executeable with `chmod a+x minecraft.sh`
++ make it executeable with `chmod a+x $(which mc)`
 + done.
 
 or just paste
->`wget -O minecraft.sh https://git.io/Jegiv && nano minecraft.sh && chmod a+x minecraft.sh`
+>`wget -O /usr/bin/mc https://git.io/Jegiv && nano $(which mc) && chmod a+x $(which mc)`
 
 into ssh, to download the script in the current folder and make it executeable.
 

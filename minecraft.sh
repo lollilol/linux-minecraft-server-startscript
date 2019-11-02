@@ -113,13 +113,12 @@ backup)
 			sleep 20 #if the server tooks longer saving the world than these two seconds, the backup file will be corrupted. So be sure this is set right.
 		fi
 	else
-		$0 save
-		sleep 2
 		cd $directory
 		echo "\033[31mBackup Folder doesnt exist. Creating it...\033[0m"
 		sleep 1
 		mkdir $backup_folder
 	fi
+	cd $directory
 	echo "\033[32mStarting Backup progress...\033[0m"
 	tar -czf $backup_folder/$backup_file world/
 	echo "\033[32mWorld successfully backupped. Location: $backup_folder/$backup_file\033[0m"

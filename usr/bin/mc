@@ -25,7 +25,7 @@ name=mc
 # for 512 Megabyte, write: "512M"
 # for 256 Megabyte, write: "256M"
 # etc..
-ram=14G
+ram=6G
 
 ##Updating
 #Here you can specify an url to an always up-to-date server.jar
@@ -52,6 +52,17 @@ backup_file=world-$(date +"%d.%m.%y_%H:%M").tar.gz
 binary=server.jar
 case "$1" in
 start)
+	if ! [ -f "$dir/eula.txt" ]; then
+		echo -n "\033[31m"
+		read -p "The EULA is not accepted. Do you want to accept the minecraft eula? (https://account.mojang.com/documents/minecraft_eula) (y/N) " eula
+		echo -n "\033[0m"
+		case "$eula" in
+		y|Y)
+		echo "eula=true" >> $dir/eula.txt
+		;;
+		*) echo; echo "\033[31mAborting!\033[0m";echo	;;
+		esac
+	fi
 	if ! screen -ls | grep -q "$name"; then
 		cd "$dir"
 		screen -AmdS "$name" java -jar -Xms$ram -Xmx$ram $flags $binary nogui
@@ -114,7 +125,7 @@ console)
 		echo "\033[31m$name-server is not running!\033[0m"
 	fi
 	;;
-update)
+update|init|install)
 	if ! [ -d "$dir" ]; then
 		mkdir "$dir"
 	fi
@@ -129,6 +140,17 @@ update)
 	else
 		wget -O "$dir/$binary" $url
 		echo "\033[32mSucessfully updated $name-server (stable)\033[0m"
+	fi
+	if ! [ -f "$dir/eula.txt" ]; then
+		echo -n "\033[31m"
+		read -p "The EULA is not accepted. Do you want to accept the minecraft eula? (https://account.mojang.com/documents/minecraft_eula) (y/N) " eula
+		echo -n "\033[0m"
+		case "$eula" in
+		y|Y)
+		echo "eula=true" >> $dir/eula.txt
+		;;
+		*) echo; echo "\033[31mAborting!\033[0m";echo	;;
+		esac
 	fi
 	;;
 backup)

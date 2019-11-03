@@ -1,8 +1,12 @@
 #!/bin/sh
+# Minecraft Server Startscript
+# Github: https://github.com/lollilol/minecraft-server-startscript
+
 ##configuration
 
 #minecraft server .jar Name
-binary=server.jar
+#binary=server.jar
+#you cant set a custom binary.jar for now, please rename your server jar file to "server.jar" and dont change this variable here.
 
 #directory of the minecraft server, write "." if the startscript is in the same folder as the minecraft server.
 #dont put a "/" at the end of the line and use absolute paths!
@@ -28,6 +32,11 @@ ram=14G
 url=https://papermc.io/ci/job/Paper-1.14/lastSuccessfulBuild/artifact/paperclip.jar
 #spigot url: https://cdn.getbukkit.org/spigot/spigot-1.13.2.jar
 
+snapshot=false
+#possible usages: true, false
+#if set to true, the latest snapshot jar will get installed if updated. If set to false, the jar file url specified above will get installed.
+#its not recommended to change this when there already is a world generated.
+
 EDITOR=nano
 #editor to edit this file and the properties file. (with $0 edit/properties)
 
@@ -40,6 +49,7 @@ backup_file=world-$(date +"%d.%m.%y_%H:%M").tar.gz
 # no neccesary changes beyond this line! #
 ##########################################
 
+binary=server.jar
 case "$1" in
 start)
 	if ! screen -ls | grep -q "$name"; then
@@ -108,8 +118,18 @@ update)
 	if ! [ -d "$dir" ]; then
 		mkdir "$dir"
 	fi
-		wget -O "$dir"/$binary $url
-		echo "\033[32mSucessfully updated $name-server\033[0m"
+	if [ "$snapshot" = true ]; then
+		export MC_BINARY=$binary
+		if ! [ -f "$dir/update_snapshot.py" ]; then
+			echo "\033[31msnapshot-updating script does not exist. Downloading it..\033[0m"
+			wget -q -O "$dir/update_snapshot.py" https://raw.githubusercontent.com/lollilol/minecraft-server-startscript/master/usr/mc/update_snapshot.py
+		fi
+			python3 "$dir/update_snapshot.py"
+			echo "\033[32mSucessfully updated $name-server (snapshot)\033[0m"
+	else
+		wget -O "$dir/$binary" $url
+		echo "\033[32mSucessfully updated $name-server (stable)\033[0m"
+	fi
 	;;
 backup)
 	if [ -d "$dir/"$backup_folder"" ]

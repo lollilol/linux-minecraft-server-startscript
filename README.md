@@ -6,7 +6,7 @@ Which once was a simple script to start, stop and restart your server has evolve
 ## Overview
 Features:
 + Start, stop and reload your minecraft server (reload only on minecraft 1.12+ or on every spigot/papermc server)
-+ You only need the script to set up a server! It automatically downloads newest paper.jar (customizable)
++ You only need the script to set up a server! It automatically downloads the latest paper.jar (customizable) or the latest snapshot
 + should work on any linux distro.
 
 ## Downloads

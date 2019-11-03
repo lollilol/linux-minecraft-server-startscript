@@ -1,6 +1,8 @@
 # Startscript for a minecraft server.
 A customizable, basic bash script to manage your minecraft server.
 
+Which once was a simple script to start, stop and restart your server has evolved in a big script, supporting updating the server, edit the properties, switch the server to snapshot, taking backups from your world and you can even add your own server cli parameter.
+
 ## Overview
 Features:
 + Start, stop and reload your minecraft server (reload only on minecraft 1.12+ or on every spigot/papermc server)

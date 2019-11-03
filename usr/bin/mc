@@ -5,7 +5,7 @@
 binary=server.jar
 
 #directory of the minecraft server, write "." if the startscript is in the same folder as the minecraft server.
-#dont put a "/" at the end of the line! otherwise update wont work!
+#dont put a "/" at the end of the line and use absolute paths!
 dir=/usr/mc
 
 #flags / commandline parameter
@@ -28,6 +28,9 @@ ram=14G
 url=https://papermc.io/ci/job/Paper-1.14/lastSuccessfulBuild/artifact/paperclip.jar
 #spigot url: https://cdn.getbukkit.org/spigot/spigot-1.13.2.jar
 
+EDITOR=nano
+#editor to edit this file and the properties file. (with $0 edit/properties)
+
 ##Backup
 backup_folder=backups
 backup_file=world-$(date +"%d.%m.%y_%H:%M").tar.gz
@@ -37,12 +40,11 @@ backup_file=world-$(date +"%d.%m.%y_%H:%M").tar.gz
 # no neccesary changes beyond this line! #
 ##########################################
 
-script=`basename "$0"`
 case "$1" in
 start)
 	if ! screen -ls | grep -q "$name"; then
-		cd $dir
-		screen -AmdS $name java -jar -Xms$ram -Xmx$ram $flags $binary nogui
+		cd "$dir"
+		screen -AmdS "$name" java -jar -Xms$ram -Xmx$ram $flags $binary nogui
 		sleep 1
 		echo "\033[32m$name-server was started..\033[0m"
 	else
@@ -51,8 +53,8 @@ start)
 	;;
 stop)
 	if screen -ls | grep -q "$name"; then
-		screen -S $name -p 0 -X stuff "minecraft:kick @a The server is restarting or got stopped.^M"
-		screen -S $name -p 0 -X stuff "stop^M"
+		screen -S "$name" -p 0 -X stuff "minecraft:kick @a The server is restarting or got stopped.^M"
+		screen -S "$name" -p 0 -X stuff "stop^M"
 		sleep 1
 		echo "\033[31m$name-server was stopped..\033[0m"
 	else
@@ -73,7 +75,7 @@ status)
 	;;
 save)
 	if screen -ls | grep -q "$name"; then
-		screen -S $name -p 0 -X stuff "save-all^M"
+		screen -S "$name" -p 0 -X stuff "save-all^M"
 		echo "\033[32m$name-server was saved..\033[0m"
 	else
 		echo "\033[31m$name-server is not running!\033[0m"
@@ -81,7 +83,7 @@ save)
 	;;
 kill)
 	if screen -ls | grep -q "$name"; then
-		screen -XS $name quit
+		screen -XS "$name" quit
 		echo "\033[31m$name-server was killed..\033[0m"
 	else
 		echo "\033[31m$name-server is not running!\033[0m"
@@ -89,7 +91,7 @@ kill)
 	;;
 reload)
 	if screen -ls | grep -q "$name"; then
-		screen -S $name -p 0 -X stuff "reload confirm^M"
+		screen -S "$name" -p 0 -X stuff "reload confirm^M"
 		echo "\033[32m$name-server was reloaded..\033[0m"
 	else
 		echo "\033[31m$name-server is not running!\033[0m"
@@ -97,17 +99,20 @@ reload)
 	;;
 console)
 	if screen -ls | grep -q "$name"; then
-		screen -rx $name
+		screen -rx "$name"
 	else
 		echo "\033[31m$name-server is not running!\033[0m"
 	fi
 	;;
 update)
-	wget -O $dir/$binary $url
+	if ! [ -d "$dir" ]; then
+		mkdir "$dir"
+	fi
+		wget -O "$dir"/$binary $url
+		echo "\033[32mSucessfully updated $name-server\033[0m"
 	;;
 backup)
-	if [ -d "$directory/$backup_folder" ]
-	if [ -d "$dir/$backup_folder" ]
+	if [ -d "$dir/"$backup_folder"" ]
 	then
 		if screen -ls | grep -q "$name"; then
 			$0 save
@@ -117,21 +122,21 @@ backup)
 		cd $dr
 		echo "\033[31mBackup Folder doesnt exist. Creating it...\033[0m"
 		sleep 1
-		mkdir $backup_folder
+		mkdir "$backup_folder"
 	fi
-	cd $dir
+	cd "$dir"
 	echo "\033[32mStarting Backup progress...\033[0m"
-	tar -czf $backup_folder/$backup_file world/
-	echo "\033[32mWorld successfully backupped. Location: $backup_folder/$backup_file\033[0m"
+	tar -czf "$backup_folder"/$backup_file world/
+	echo "\033[32mWorld successfully backupped. Location: $dir/$backup_folder/$backup_file \033[0m"
 	;;
 edit)
-	if [ -z ${EDITOR+x} ]; then nano $0; else $EDITOR $0; fi
+	if [ -z ${EDITOR+x} ]; then nano $0; else "$EDITOR" $0; fi
 	;;
 properties)
-	if [ -z ${EDITOR+x} ]; then nano $dir/server.properties; else $EDITOR $0; fi
+	if [ -z ${EDITOR+x} ]; then nano "$dir"/server.properties; else "$EDITOR" "$dir"/server.properties; fi
 	;;
 *)
-	echo "\033[31mUsage: '$0 (start|stop|restart|status|save|kill|reload|console|update|backup)'\033[0m"
+	echo "\033[31mUsage: '$0 (start|stop|restart|status|save|kill|reload|console|update|backup|edit|properties)'\033[0m"
 	;;
 esac
 exit 0

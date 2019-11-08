@@ -57,9 +57,7 @@ start)
 		read -p "The EULA is not accepted. Do you want to accept the minecraft eula? (https://account.mojang.com/documents/minecraft_eula) (y/N) " eula
 		echo -n "\033[0m"
 		case "$eula" in
-		y|Y)
-		echo "eula=true" >> $dir/eula.txt
-		;;
+		y|Y) echo "eula=true" >> $dir/eula.txt ;;
 		*) echo; echo "\033[31mAborting!\033[0m";echo	;;
 		esac
 	fi
@@ -75,8 +73,11 @@ start)
 stop)
 	if screen -ls | grep -q "$name"; then
 		screen -S "$name" -p 0 -X stuff "minecraft:kick @a The server is restarting or got stopped.^M"
-		screen -S "$name" -p 0 -X stuff "stop^M"
-		sleep 1
+		screen -S "$name" -p 0 -X stuff "^c^M"
+		echo "\033[32mWaiting for the server to be stopped.\033[0m"
+			while screen -list | grep -q "$name"; do
+				sleep 0.1
+			done
 		echo "\033[31m$name-server was stopped..\033[0m"
 	else
 		echo "\033[31m$name-server is not running!\033[0m"
@@ -84,7 +85,7 @@ stop)
 	;;
 restart)
 	$0 stop
-	sleep 10
+	echo "\033[32mStarting server\033[0m"
 	$0 start
 	;;
 status)
@@ -134,6 +135,7 @@ update|init|install)
 		if ! [ -f "$dir/update_snapshot.py" ]; then
 			echo "\033[31msnapshot-updating script does not exist. Downloading it..\033[0m"
 			wget -q -O "$dir/update_snapshot.py" https://raw.githubusercontent.com/lollilol/minecraft-server-startscript/master/usr/mc/update_snapshot.py
+			chmod +x "$dir/update_snapshot.py"
 		fi
 			python3 "$dir/update_snapshot.py"
 			echo "\033[32mSucessfully updated $name-server (snapshot)\033[0m"
@@ -146,9 +148,7 @@ update|init|install)
 		read -p "The EULA is not accepted. Do you want to accept the minecraft eula? (https://account.mojang.com/documents/minecraft_eula) (y/N) " eula
 		echo -n "\033[0m"
 		case "$eula" in
-		y|Y)
-		echo "eula=true" >> $dir/eula.txt
-		;;
+		y|Y) echo "eula=true" >> $dir/eula.txt ;;
 		*) echo; echo "\033[31mAborting!\033[0m";echo	;;
 		esac
 	fi
@@ -158,10 +158,10 @@ backup)
 	then
 		if screen -ls | grep -q "$name"; then
 			$0 save
-			sleep 20 #if the server tooks longer saving the world than these two seconds, the backup file will be corrupted. So be sure this is set right.
+			sleep 15 #if the server tooks longer saving the world than these 15 seconds, the backup file will be corrupted. So be sure this is set right.
 		fi
 	else
-		cd $dr
+		cd $dir
 		echo "\033[31mBackup Folder doesnt exist. Creating it...\033[0m"
 		sleep 1
 		mkdir "$backup_folder"

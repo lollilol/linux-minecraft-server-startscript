@@ -1,5 +1,5 @@
 # Startscript for a minecraft server.
-A customizable, basic bash script to manage your minecraft server.
+A customizable, ~basic~ bash script to manage your minecraft server.
 
 Which once was a simple script to start, stop and restart your server has evolved in a big script, supporting updating the server, edit the properties, switch the server to snapshot, taking backups from your world and you can even add your own server cli parameter.
 
@@ -29,7 +29,7 @@ mc (start|stop|restart|status|save|kill|reload|console|update|backup|edit|proper
 or just paste
 >`wget -O /usr/bin/mc https://git.io/Jegiv && nano $(which mc) && chmod a+x $(which mc)`
 
-into ssh, to download the script in the current folder and make it executeable.
+into ssh, to download the script into /usr/bin and make it executeable.
 
 ## Required/Dependencies
 + screen (in the most Repositorys called "screen")

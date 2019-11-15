@@ -137,6 +137,7 @@ update|init|install)
 			wget -q -O "$dir/update_snapshot.py" https://raw.githubusercontent.com/lollilol/minecraft-server-startscript/master/usr/mc/update_snapshot.py
 			chmod +x "$dir/update_snapshot.py"
 		fi
+			cd "$dir"
 			python3 "$dir/update_snapshot.py"
 			echo "\033[32mSucessfully updated $name-server (snapshot)\033[0m"
 	else

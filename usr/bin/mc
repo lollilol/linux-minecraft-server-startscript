@@ -98,7 +98,7 @@ status)
 save)
 	if screen -ls | grep -q "$name"; then
 		screen -S "$name" -p 0 -X stuff "save-all^M"
-		echo "\033[32m$name-server was saved..\033[0m"
+		echo "\033[32msaving $name-server..\033[0m"
 	else
 		echo "\033[31m$name-server is not running!\033[0m"
 	fi
@@ -155,21 +155,24 @@ update|init|install)
 	fi
 	;;
 backup)
-	if [ -d "$dir/"$backup_folder"" ]
-	then
-		if screen -ls | grep -q "$name"; then
-			$0 save
-			sleep 15 #if the server tooks longer saving the world than these 15 seconds, the backup file will be corrupted. So be sure this is set right.
-		fi
-	else
+	if ! [ -d "$dir/"$backup_folder"" ]; then
 		cd $dir
 		echo "\033[31mBackup Folder doesnt exist. Creating it...\033[0m"
-		sleep 1
 		mkdir "$backup_folder"
 	fi
+	if screen -ls | grep -q "$name"; then
+		$0 save
+		echo "\033[32mThis can take up to 1 - 2 minutes"
+		sleep 15 #if the server takes longer saving the world than these 15 seconds, the backup file will be corrupted. So be sure this is set right.
+	fi
 	cd "$dir"
-	echo "\033[32mStarting Backup progress...\033[0m"
-	tar -czf "$backup_folder"/$backup_file world/
+	if [ -d "$dir/world_nether" ] || [ -d "$dir/world_the_end" ]; then
+		echo "\033[32mStarting Backup progress on a bukkit/spigot based server...\033[0m"
+		tar -czf "$backup_folder/$backup_file" "world" "world_nether" "world_the_end"
+	else
+		echo "\033[32mStarting Backup progress on a vanilla server (no separate world folders)...\033[0m"
+		tar -czf "$backup_folder/$backup_file" "world"
+	fi
 	echo "\033[32mWorld successfully backupped. Location: $dir/$backup_folder/$backup_file \033[0m"
 	;;
 edit)

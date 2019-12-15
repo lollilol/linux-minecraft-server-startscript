@@ -29,8 +29,8 @@ ram=6G
 
 ##Updating
 #Here you can specify an url to an always up-to-date server.jar
-url=https://papermc.io/ci/job/Paper-1.14/lastSuccessfulBuild/artifact/paperclip.jar
-#spigot url: https://cdn.getbukkit.org/spigot/spigot-1.13.2.jar
+url=https://papermc.io/ci/job/Paper-1.15/lastSuccessfulBuild/artifact/paperclip.jar
+#spigot url: https://cdn.getbukkit.org/spigot/spigot-1.15.jar
 
 snapshot=false
 #possible usages: true, false
@@ -64,7 +64,6 @@ start)
 	if ! screen -ls | grep -q "$name"; then
 		cd "$dir"
 		screen -AmdS "$name" java -jar -Xms$ram -Xmx$ram $flags $binary nogui
-		sleep 1
 		echo "\033[32m$name-server was started..\033[0m"
 	else
 		echo "\033[31m$name-server is already running!\033[0m"
@@ -72,8 +71,7 @@ start)
 	;;
 stop)
 	if screen -ls | grep -q "$name"; then
-		screen -S "$name" -p 0 -X stuff "minecraft:kick @a The server is restarting or got stopped.^M"
-		screen -S "$name" -p 0 -X stuff "^c^M"
+		screen -S "$name" -p 0 -X stuff "stop^M"
 		echo "\033[32mWaiting for the server to be stopped.\033[0m"
 			while screen -list | grep -q "$name"; do
 				sleep 0.1

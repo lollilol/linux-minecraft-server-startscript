@@ -174,10 +174,10 @@ backup)
 	echo "\033[32mWorld successfully backupped. Location: $dir/$backup_folder/$backup_file \033[0m"
 	;;
 edit)
-	if [ -z ${EDITOR+x} ]; then nano $0; else "$EDITOR" $0; fi
+	${EDITOR:-nano} $0
 	;;
 properties)
-	if [ -z ${EDITOR+x} ]; then nano "$dir"/server.properties; else "$EDITOR" "$dir"/server.properties; fi
+	${EDITOR:-nano} "$dir"/server.properties
 	;;
 *)
 	echo "\033[31mUsage: '$0 (start|stop|restart|status|save|kill|reload|console|update|backup|edit|properties)'\033[0m"
